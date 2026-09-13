@@ -23,7 +23,8 @@ function formatNumber(value) {
 }
 
 function loadAnalise() {
-var stats = [
+	var stats = [
+		{ id: 'statOnline', key: 'hypersclient_online_' + minuteKey() },
 		{ id: 'statToday', key: 'hypersclient_daily_' + today() },
 		{ id: 'statLaunches', key: 'hypersclient_launches' }
 	];
@@ -61,7 +62,16 @@ var stats = [
 
 function today() {
 	var d = new Date();
-	var m = String(d.getMonth() + 1).padStart(2, '0');
-	var day = String(d.getDate()).padStart(2, '0');
-	return d.getFullYear() + '-' + m + '-' + day;
+	var m = String(d.getUTCMonth() + 1).padStart(2, '0');
+	var day = String(d.getUTCDate()).padStart(2, '0');
+	return d.getUTCFullYear() + '-' + m + '-' + day;
+}
+
+function minuteKey() {
+	var d = new Date();
+	var m = String(d.getUTCMonth() + 1).padStart(2, '0');
+	var day = String(d.getUTCDate()).padStart(2, '0');
+	var h = String(d.getUTCHours()).padStart(2, '0');
+	var min = String(d.getUTCMinutes()).padStart(2, '0');
+	return d.getUTCFullYear() + m + day + h + min;
 }
