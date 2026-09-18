@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "api/online.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/online",
+      "dest": "/api/online.js"
+    }
+  ]
+}
