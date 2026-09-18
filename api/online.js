@@ -1,4 +1,4 @@
-const { kv } = require("@vercel/kv");
+let players = {};
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -9,46 +9,45 @@ module.exports = async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const TTL = 30;
+  const now = Date.now();
+  Object.keys(players).forEach(uuid => {
+    if (now - players[uuid].lastSeen > 35000) {
+      delete players[uuid];
+    }
+  });
 
   try {
     if (req.method === "POST") {
       const { uuid, username, cape, badge } = req.body;
       if (!uuid) return res.status(400).json({ error: "uuid required" });
 
-      await kv.set(`player:${uuid}`, {
+      players[uuid] = {
         uuid,
         username: username || "Unknown",
         cape: cape || "NONE",
         badge: badge || "DEFAULT",
-        joined: Date.now()
-      }, { ex: TTL });
+        joined: players[uuid] ? players[uuid].joined : now,
+        lastSeen: now
+      };
 
       return res.status(200).json({ ok: true });
     }
 
     if (req.method === "GET") {
-      const keys = [];
-      let cursor = 0;
-      do {
-        const result = await kv.scan(cursor, { match: "player:*", count: 100 });
-        cursor = result.cursor;
-        keys.push(...result.keys);
-      } while (cursor !== 0);
+      Object.keys(players).forEach(uuid => {
+        if (now - players[uuid].lastSeen > 35000) {
+          delete players[uuid];
+        }
+      });
 
-      const players = [];
-      for (const key of keys) {
-        const player = await kv.get(key);
-        if (player) players.push(player);
-      }
-
-      return res.status(200).json({ players });
+      const list = Object.values(players);
+      return res.status(200).json({ players: list });
     }
 
     if (req.method === "DELETE") {
       const { uuid } = req.body;
       if (!uuid) return res.status(400).json({ error: "uuid required" });
-      await kv.del(`player:${uuid}`);
+      delete players[uuid];
       return res.status(200).json({ ok: true });
     }
 

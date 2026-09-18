@@ -1,7 +1,0 @@
-{
-  "name": "vnzinhypers-prog-github-io",
-  "private": true,
-  "dependencies": {
-    "@vercel/kv": "^2.0.0"
-  }
-}
