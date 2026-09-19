@@ -11,7 +11,7 @@ module.exports = async function handler(req, res) {
 
   const now = Date.now();
   Object.keys(players).forEach(uuid => {
-    if (now - players[uuid].lastSeen > 35000) {
+    if (now - players[uuid].lastSeen > 60000) {
       delete players[uuid];
     }
   });
@@ -35,7 +35,7 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "GET") {
       Object.keys(players).forEach(uuid => {
-        if (now - players[uuid].lastSeen > 35000) {
+        if (now - players[uuid].lastSeen > 60000) {
           delete players[uuid];
         }
       });
