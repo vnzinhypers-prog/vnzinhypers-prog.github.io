@@ -1,0 +1,35 @@
+{
+  "pix": {
+    "chave": "vinekguov@gmail.com",
+    "nome": "VINICIUS EDUARDO",
+    "cidade": "CAMPO MOURAO"
+  },
+  "discord": "https://discord.gg/SZxEGgQyJ2",
+  "capes": {
+    "FIRE": 5,
+    "ICE": 5,
+    "RAINBOW": 5,
+    "VOID": 5,
+    "GALAXY": 5,
+    "EMERALD": 5,
+    "YOUTUBE": 5,
+    "WOLF": 5,
+    "MOON": 5,
+    "PLANETS": 5,
+    "UNIVERSE": 5,
+    "HELLOKITTY": 5,
+    "ROSE": 5,
+    "MINECON2016": 5,
+    "MINECON2013": 5,
+    "CAT": 5,
+    "PEDRO": 5,
+    "MENOR7": 5,
+    "MATHEUS": 5,
+    "BATMAN": 5,
+    "FOGAREU": 5
+  },
+  "parceiroCapes": [
+    "PEDRO",
+    "MENOR7"
+  ]
+}
